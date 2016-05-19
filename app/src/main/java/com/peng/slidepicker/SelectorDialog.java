@@ -4,8 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -43,7 +41,7 @@ public class SelectorDialog extends DialogFragment {
 		ButterKnife.bind(this, view);
 
 		slidePicker.setData(mData);
-		slidePicker.setLineColor(getResources().getColor(R.color.lineColor));
+		slidePicker.setLineColor(getResources().getColor(R.color.gray));
 		slidePicker.setOnSelectListener(new SlidePicker.onSelectListener() {
 			@Override
 			public void onSelect(String text) {

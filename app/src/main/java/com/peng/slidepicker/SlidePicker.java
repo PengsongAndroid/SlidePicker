@@ -5,7 +5,12 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ComposeShader;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Handler;
 import android.os.Message;
@@ -19,8 +24,6 @@ import android.view.View;
 public class SlidePicker extends View {
 
 	private static final String TAG = SlidePicker.class.getSimpleName();
-
-	private Context context = null;
 
 	/**
 	 * text之间间距和minTextSize之比
@@ -165,11 +168,14 @@ public class SlidePicker extends View {
 		if (isInit){
 			drawLine(canvas);
 			drawMainText(canvas);
-//			drawBg(canvas);
+			drawBg(canvas);
 		}
 
 	}
 
+	/**
+	 * 绘制选中行的背景色
+	 * */
 	private void drawLine(Canvas canvas){
 		Paint paint = new Paint();
 		paint.setAlpha(0);
@@ -177,11 +183,18 @@ public class SlidePicker extends View {
 		canvas.drawRect(0, (mViewHeight - midLineHeight)/2 , mViewWidth, (mViewHeight + midLineHeight)/2, paint);
 	}
 
+	/**
+	 * 绘制渐变的背景
+	 * */
 	private void drawBg(Canvas canvas){
-		Shader shader = new Shader();
+	//这里的渐变半径设为3/4的宽度，因为RadialGradient渐变是按照圆心来的，如果是椭圆类的渐变只能舍弃一边的效果
+		Shader shader = new RadialGradient(mViewWidth/2, mViewHeight/2,
+				mViewWidth*3/4, getResources().getColor(R.color.transparentColor),
+				getResources().getColor(R.color.white), Shader.TileMode.CLAMP);
+
 		Paint paint = new Paint();
 		paint.setShader(shader);
-		paint.setAlpha(0);
+		canvas.drawRect(0, 0, mViewWidth, mViewHeight, paint);
 	}
 
 	/**
