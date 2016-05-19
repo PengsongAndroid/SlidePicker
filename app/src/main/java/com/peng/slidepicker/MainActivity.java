@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener{
 	public void onClick() {
 		List<String> data = new ArrayList<String>();
 		for (int i = 0; i < 10; i++) {
-			data.add("测试文字123456" + i);
+			data.add("测试文字" + i);
 		}
 		dialog = SelectorDialog.newInstance(data);
 		dialog.show(getFragmentManager(), "dialog");
